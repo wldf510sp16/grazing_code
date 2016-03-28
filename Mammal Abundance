@@ -21,8 +21,8 @@ mammals<-rbind(my.data[which(my.data$Taxa=="Mammals"
 head(mammals)
 dim(mammals)
 
-wt2<-escalc(measure="SMD",m1i=TrtMean,m2i=CntrlMean,sd1i=TrtVar,
-            sd2i=TrtVar,n1i=n.Trt,n2i=n.Cntrl, 
+wt2<-escalc(measure="SMD",m1i=TrtMean,m2i=CntrlMean,sd1i=sqrt(TrtVar),
+            sd2i=sqrt(CntrlVar),n1i=n.Trt,n2i=n.Cntrl, 
             data=mammals,var.names=c("SMD","SMD_var"),digits=4)
 head(wt2)
 wt2$Taxa

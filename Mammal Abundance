@@ -26,7 +26,7 @@ wt2<-escalc(measure="SMD",m1i=TrtMean,m2i=CntrlMean,sd1i=sqrt(TrtVar),
             data=mammals,var.names=c("SMD","SMD_var"),digits=4)
 head(wt2)
 wt2$Taxa
-wt2<-wt2[order(wt2$TrtMean),]
+wt2<-wt2[order(wt2$Genus),]
 names(wt2)
 
 ###Histogram

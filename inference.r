@@ -4,7 +4,7 @@
 require(metafor)
 require(MCMCglmm)
 
-setwd("C:\\Users\\Dan\\Dropbox\\HSU Spring 2016\\wldf 510\\lepidoptera for week 10")
+setwd("C:\\Users\\sd1249\\Documents\\Sharon\\Spring2016\\MetaAnalysis_WLDF510\\Practice_Scripts\\lepidoptera_test")
 
 ##read in lepidoptera.csv
 dat      <- read.csv("lepidoptera.csv",sep=",",header=TRUE)

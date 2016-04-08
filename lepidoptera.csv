@@ -1,0 +1,26 @@
+species,subord,family,percent.polyandry,hedge.d,var.d
+Acrolepia assectella ,H,Y,38,0.539,0.044
+Agrotis segetum,H,N,27.5,0.376,0.021
+Busseola fusca,H,N,,0.469,0.082
+Colias eurytheme,R,Pi,47,1.013,0.205
+Chilo partellus,H,Py,5.5,-0.041,0.052
+Choristoneura fumiferana,H,T,27.5,0.137,0.048
+Choristoneura rosaceana,H,T,45,1.028,0.037
+Diatraea considerata,H,Py,7.5,0.458,0.133
+Epiphyas postvittana,H,T,12.25,-0.118,0.090
+Eurema hecabe,R,Pi,,0.111,0.200
+Helicoverpa armigera,H,N,68,0.304,0.128
+Jalmenus evagoras,R,L,0,0.366,0.071
+Lobesia botrana,H,T,22.5,0.066,0.046
+Ostrinia nubilalis,H,Py,27.5,0.359,0.017
+Papilio glaucus,R,Pa,65,0.232,0.044
+Papilio machaon,R,Pa,,0.251,0.155
+Pectinophora gossypiella,H,G,81,0.809,0.024
+Pieris napi,R,Pi,70,1.169,0.255
+Plodia interpunctella,H,Py,37.5,0.114,0.046
+Pseudaletia unipuncta,H,N,55,-0.152,0.048
+Sitotroga cerealella,H,G,68.5,0.507,0.022
+Spodoptera littoralis,H,N,61.5,0.100,0.107
+Thymelicus lineola,R,H,22,0.107,0.078
+Trichoplusia ni,H,N,81,0.263,0.075
+Zeiraphera canadiensis,H,T,8,0.016,0.067

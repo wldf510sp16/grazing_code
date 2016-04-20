@@ -41,11 +41,11 @@ forest(wt2$SMD,wt2$SMD_var,slab=wt2$Species,pch=19)
 fixef.model <- rma(SMD, SMD_var, data=wt2, method = "FE")
 summary(fixef.model)
 plot(fixef.model)
-forest(fixef.model)
+forest(fixef.model,slab=wt2$GENUS)
 
 ####Random Effects Model-excludes studies with "NA" Values
 ranef.model <- rma(SMD, SMD_var, data=wt2, method = "HE")
 
 summary(ranef.model)
 plot(ranef.model)
-forest(ranef.model)
+forest(ranef.model,slab=wt2$GENUS)

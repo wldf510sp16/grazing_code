@@ -71,12 +71,13 @@ ranef.trim<-trimfill(ranef.model)
 funnel(ranef.trim,main="Mammal Abundance Random Effect")
 
 
-#####SDM as functions proposed:
+#####SMD as functions proposed:
 
-##PaperID
+##PaperID/location/year-sampling effect?
 ##Genus
 ##VegetationType?
-
+##Grazing regime
+##AUM
 
 ##instal MCMCglmm
 install.packages("MCMCglmm")
@@ -84,42 +85,40 @@ require(MCMCglmm)
 
 
 fixef.model <- rma(SMD ~ #PARAMETER, SMD_var, data=wt2, method = "FE")
-                     summary(fixef.model)
-                   plot(fixef.model,slab=wt2$Genus)
+
+summary(fixef.model)
+plot(fixef.model,slab=wt2$Genus)
                    
                    
-                   ranef.model <- rma(SMD~#PARAMETER, SMD_var, data=wt2, method = "HE")
-                                        summary(ranef.model)
-                                      plot(ranef.model)
-                                      forest(ranef.model,slab=wt2$PaperID)
-                                      ##back to problem at hand... comparing alternative approaches to inference
-                                      
-                                      ##maximum likelihood (also, I-T model selection)
-                                      
-                                      ml.model.reduced <- rma(SMD~ #PARAMETERS, SMD_var, data=wt2, method = "REML") #maximum-likelihood
-                                                                summary(ml.model.reduced)
-                                                              ml.model.full    <- rma(SMD ~ #ALLPARAMETERS, var.d, data=wt2, method = "REML") 
-                                                                                        
-                                                                                        ##Bayesian inference (not to be confused with empirical Bayes option in rma, not same thing)
-                                                                                        
-                                                                                        ##define priors (these are "minimally informative" priors for the covariances, see MCMCglmm man pages for help)
-                                                                                        ##the only one of interest here is the "R" covariance, which ends of "translating" to a prior for the among-study
-                                                                                        ##variance in effect sizes
-                                                                                        
-                                                                                        prior = list(R = list(V = 1, nu=0), G = list(list ( V = 1, n = 1, fix=1)))
+ranef.model <- rma(SMD~#PARAMETER, SMD_var, data=wt2, method = "HE")
+summary(ranef.model)
+plot(ranef.model)
+forest(ranef.model,slab=wt2$PaperID)
+
+##maximum likelihood (also, I-T model selection)
+          
+ml.model.reduced <- rma(SMD~ #PARAMETERS, SMD_var, data=wt2, method = "REML") #maximum-likelihood
+summary(ml.model.reduced)
+ml.model.full    <- rma(SMD ~ #ALLPARAMETERS, var.d, data=wt2, method = "REML") 
+
+#Bayesian inference (not to be confused with empirical Bayes option in rma, not same thing)
+
+##define priors (these are "minimally informative" priors for the covariances, see MCMCglmm man pages for help)
+##the only one of interest here is the "R" covariance, which ends of "translating" to a prior for the among-study
+##variance in effect sizes
+ 
+prior = list(R = list(V = 1, nu=0), G = list(list ( V = 1, n = 1, fix=1)))
+
+##we're using MCMCglmm() to approximate the posterior probability distributions of the parameters of the model
+##that we're interested in... easier than WinBUGS or JAGS, less flexible
+ 
+###Will have to remove NAs before running this model
+Selected<-wt2[!is.na(wt2$SMD_var)& !is.na(wt2$Genus),]
+names(Selected)
                                                                                       
-                                                                                      ##we're using MCMCglmm() to approximate the posterior probability distributions of the parameters of the model
-                                                                                      ##that we're interested in... easier than WinBUGS or JAGS, less flexible
+ bayes.model<-MCMCglmm(SMD~Genus, mev=Selected$SMD_var, data=Selected, nitt=15000, thin=10, burnin=5000, prior=prior)
+summary(bayes.model)
                                                                                       
-                                                                                      
-                                                                                      ###Will have to remove NAs before running this model
-                                                                                      
-                                                                                      Selected<-wt2[!is.na(wt2$SMD_var)& !is.na(wt2$Genus),]
-                                                                                      names(Selected)
-                                                                                      
-                                                                                      bayes.model<-MCMCglmm(SMD~Genus, mev=Selected$SMD_var, data=Selected, nitt=15000, thin=10, burnin=5000, prior=prior)
-                                                                                      summary(bayes.model)
-                                                                                      
-                                                                                      ##plots MCMC chains and posterior approximations
-                                                                                      plot(bayes.model)
-                                                                                      ##posterior probability distributions... use summary()
+##plots MCMC chains and posterior approximations
+plot(bayes.model)
+##posterior probability distributions... use summary()
